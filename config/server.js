@@ -1,14 +1,15 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
+import dotenv from 'dotenv';
 
 const app = express();
 
 // Middleware setup
 app.use(cors());
 app.use(bodyParser.json());
+dotenv.config();
 
-// Sample route
 app.get('/status', (req, res) => {
     res.send('Hello World!');
 });
