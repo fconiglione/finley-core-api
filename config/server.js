@@ -3,6 +3,7 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import userRoutes from '../routes/userRoutes.js';
+import { initializeUserTable } from '../db/initialize.js';
 
 const app = express();
 
@@ -11,6 +12,7 @@ app.use(cors());
 app.use('/api/users', userRoutes);
 app.use(bodyParser.json());
 dotenv.config();
+initializeUserTable();
 
 app.get('/v1/api/users', userRoutes);
 
