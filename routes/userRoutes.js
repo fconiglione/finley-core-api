@@ -5,7 +5,7 @@ import { body } from 'express-validator';
 const router = express.Router();
 
 // Register route
-router.post('/register', [body('email').isEmail().withMessage('Valid email address required'), body('password').isLength({ min: 5 }).withMessage('Password must be at least 8 characters')], registerUser);
+router.post('/register', [body('email').isEmail().withMessage('Valid email address required'), body('password').isLength({ min: 5 }).withMessage('Password must be at least 8 characters'), body('name').notEmpty().withMessage('Name is required')], registerUser);
 
 // Login route
 // router.post('/login', [body('email').isEmail().withMessage('Valid email address required'), body('password').isLength({ min: 5 }).withMessage('Password must be at least 8 characters')], loginUser);

@@ -14,7 +14,7 @@ export const registerUser = async (req, res) => {
         return res.status(400).json({ errors: errors.array() });
     }
 
-    const { email, password } = req.body;
+    const { email, password, name  } = req.body;
 
     try {
         // Check if user already exists
@@ -27,7 +27,7 @@ export const registerUser = async (req, res) => {
         const hashedPassword = await bcrypt.hash(password, 10);
 
         // Create new user
-        const newUser = await User.create({ email, password: hashedPassword });
+        const newUser = await User.create({ email, password: hashedPassword, name });
 
         const token = jwt.sign({ id: newUser.id }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRATION });
 
