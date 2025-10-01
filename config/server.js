@@ -8,13 +8,16 @@ import { initializeUserTable } from '../db/initialize.js';
 const app = express();
 
 // Middleware setup
-app.use(cors());
-app.use('/api/users', userRoutes);
+app.use(cors({
+    origin: ['http://localhost:3000'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true,
+}));
 app.use(bodyParser.json());
 dotenv.config();
 initializeUserTable();
 
-app.get('/v1/api/users', userRoutes);
+app.use('/v1/api/users', userRoutes);
 
 // Start the server
 const PORT = process.env.PORT || 3001;
