@@ -86,3 +86,18 @@ export const verifyUser = (req, res, next) => {
         res.status(401).json({ message: 'Token is not valid' });
     }
 };
+
+// Retrieve user profile
+
+export const getUserProfile = async (req, res) => {
+    try {
+        const user = await User.findById(req.user.id);
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        res.status(200).json({ email: user.email, name: user.name, created_at: user.created_at });
+    } catch (error) {
+        console.error('Error retrieving user profile:', error);
+        res.status(500).json({ message: 'Server error' });
+    }
+};

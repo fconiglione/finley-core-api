@@ -4,6 +4,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import userRoutes from '../routes/userRoutes.js';
 import { initializeUserTable } from '../db/initialize.js';
+import { verifyUser } from '../controllers/userController.js';
 
 const app = express();
 

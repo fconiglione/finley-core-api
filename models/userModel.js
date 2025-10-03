@@ -17,4 +17,12 @@ export default class User {
         );
         return result.rows[0];
     }
+
+    static async findById(id) {
+        const result = await pool.query(
+            'SELECT id, email, name FROM users WHERE id = $1',
+            [id]
+        );
+        return result.rows[0];
+    }
 }

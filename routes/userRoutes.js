@@ -1,5 +1,5 @@
 import express from 'express';
-import { registerUser, loginUser } from '../controllers/userController.js';
+import { registerUser, loginUser, verifyUser, getUserProfile } from '../controllers/userController.js';
 import { body } from 'express-validator';
 
 const router = express.Router();
@@ -13,7 +13,7 @@ router.post('/login', [body('email').isEmail().withMessage('Valid email address 
 // Logout route
 // router.post('/logout', [body('email').isEmail().withMessage('Valid email address required'), body('password').isLength({ min: 5 }).withMessage('Password must be at least 8 characters')], logoutUser);
 
-// Middleware to check authentication
-// router.post('/verify', verifyUser);
+// Profile route (PROTECTED)
+router.post('/profile', verifyUser, getUserProfile);
 
 export default router;
