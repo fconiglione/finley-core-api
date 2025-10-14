@@ -24,6 +24,9 @@ initializeLiabilitiesTable();
 
 app.use('/v1/api/users', userRoutes);
 app.use('/v1/api/data', dataRoutes);
+app.use((req, res) => {
+    res.status(404).json({ message: 'Endpoint not found' });
+});
 
 // Start the server
 const PORT = process.env.PORT || 3001;
