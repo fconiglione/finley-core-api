@@ -4,6 +4,8 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import userRoutes from '../routes/userRoutes.js';
 import { initializeUserTable } from '../db/initialize.js';
+import { initializeAssetsTable } from '../db/initialize.js';
+import { initializeLiabilitiesTable } from '../db/initialize.js';
 import { verifyUser } from '../controllers/userController.js';
 
 const app = express();
@@ -17,6 +19,8 @@ app.use(cors({
 app.use(bodyParser.json());
 dotenv.config();
 initializeUserTable();
+initializeAssetsTable();
+initializeLiabilitiesTable();
 
 app.use('/v1/api/users', userRoutes);
 
