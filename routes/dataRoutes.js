@@ -1,5 +1,5 @@
 import express from 'express';
-import { addAsset, updateAsset, deleteAsset, addLiability, updateLiability, deleteLiability } from '../controllers/dataController.js';
+import { addAsset, updateAsset, deleteAsset, addLiability, updateLiability, deleteLiability, getAllData } from '../controllers/dataController.js';
 import { body } from 'express-validator';
 import { verifyUser } from '../controllers/userController.js';
 
@@ -46,5 +46,8 @@ router.put('/liabilities/:id', verifyUser, [
 
 // Delete Liability route (PROTECTED)
 router.delete('/liabilities/:id', verifyUser, deleteLiability); 
+
+// Get All Data route (PROTECTED)
+router.get('/all', verifyUser, getAllData);
 
 export default router;

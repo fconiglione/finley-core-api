@@ -6,7 +6,7 @@ import userRoutes from '../routes/userRoutes.js';
 import { initializeUserTable } from '../db/initialize.js';
 import { initializeAssetsTable } from '../db/initialize.js';
 import { initializeLiabilitiesTable } from '../db/initialize.js';
-import { verifyUser } from '../controllers/userController.js';
+import dataRoutes from '../routes/dataRoutes.js';
 
 const app = express();
 
@@ -23,6 +23,7 @@ initializeAssetsTable();
 initializeLiabilitiesTable();
 
 app.use('/v1/api/users', userRoutes);
+app.use('/v1/api/data', dataRoutes);
 
 // Start the server
 const PORT = process.env.PORT || 3001;
