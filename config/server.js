@@ -7,6 +7,7 @@ import { initializeUserTable } from '../db/initialize.js';
 import { initializeAssetsTable } from '../db/initialize.js';
 import { initializeLiabilitiesTable } from '../db/initialize.js';
 import dataRoutes from '../routes/dataRoutes.js';
+import insightRoutes from '../routes/insightRoutes.js';
 
 const app = express();
 
@@ -24,6 +25,7 @@ initializeLiabilitiesTable();
 
 app.use('/v1/api/users', userRoutes);
 app.use('/v1/api/data', dataRoutes);
+app.use('/v1/api/insights', insightRoutes);
 app.use((req, res) => {
     res.status(404).json({ message: 'Endpoint not found' });
 });
