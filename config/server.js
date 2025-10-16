@@ -13,7 +13,7 @@ const app = express();
 
 // Middleware setup
 app.use(cors({
-    origin: [process.env.CORS_DOMAIN],
+    origin: '*',
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true,
 }));
