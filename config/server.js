@@ -13,7 +13,7 @@ const app = express();
 
 // Middleware setup
 app.use(cors({
-    origin: '*',
+    origin: '*', // All origins allowed for development; restrict in production
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true,
 }));
