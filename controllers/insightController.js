@@ -18,8 +18,9 @@ export const handleMessage = async (req, res) => {
     try {
         const response = await axios.post(`${process.env.DATA_API}/v1/api/ai/respond`,
             {message: message,
-            userId: userId},
-            { timeout: 15000 }
+            userId: userId,
+            assets: await Data.getAssetsByUserId(userId),
+            liabilities: await Data.getLiabilitiesByUserId(userId)}
         );
 
         const messageReceived = response.data.response;
