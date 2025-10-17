@@ -1,6 +1,7 @@
 import Data from '../models/dataModel.js';
 import dotenv from 'dotenv';
 import { body, validationResult } from 'express-validator';
+import axios from 'axios';
 
 dotenv.config();
 
@@ -15,9 +16,14 @@ export const handleMessage = async (req, res) => {
     const userId = req.user.id;
 
     try {
-        console.log(`Received message from user ${userId}: ${message}`);
+        const response = await axios.post(`${process.env.DATA_API}/v1/api/ai/respond`, {
+            message: message,
+            userId: userId
+        });
 
-        res.status(200).json({ message: 'Message received successfully' });
+        const messageReceived = response.data.response;
+
+        res.status(200).json({ messageReceived });
     } catch (error) {
         console.error('Error processing message:', error);
         res.status(500).json({ message: 'Server error' });
