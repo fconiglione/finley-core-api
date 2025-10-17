@@ -13,17 +13,18 @@ export const handleMessage = async (req, res) => {
     }
 
     const { message } = req.body;
-    const userId = req.user.id;
+    const userId = req.user.id;    
 
     try {
-        const response = await axios.post(`${process.env.DATA_API}/v1/api/ai/respond`, {
-            message: message,
-            userId: userId
-        });
+        const response = await axios.post(`${process.env.DATA_API}/v1/api/ai/respond`,
+            {message: message,
+            userId: userId},
+            { timeout: 15000 }
+        );
 
         const messageReceived = response.data.response;
 
-        res.status(200).json({ messageReceived });
+        res.status(200).json(messageReceived);
     } catch (error) {
         console.error('Error processing message:', error);
         res.status(500).json({ message: 'Server error' });
