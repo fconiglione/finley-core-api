@@ -1,5 +1,5 @@
 import express from 'express';
-import { registerUser, loginUser, verifyUser, getUserProfile } from '../controllers/userController.js';
+import { registerUser, loginUser, verifyUser, getUserProfile, deleteUserAccount, updateUserProfile, updateUserNotifications } from '../controllers/userController.js';
 import { body } from 'express-validator';
 
 const router = express.Router();
@@ -15,5 +15,14 @@ router.post('/login', [body('email').isEmail().withMessage('Valid email address 
 
 // Profile route (PROTECTED)
 router.post('/profile', verifyUser, getUserProfile);
+
+// User Settings route (PROTECTED)
+router.put('/profile/settings', verifyUser, updateUserProfile);
+
+// User notifications route (PROTECTED)
+router.put('/profile/settings/notifications', verifyUser, updateUserNotifications);
+
+// Delete Account route (PROTECTED)
+router.delete('/delete', verifyUser, deleteUserAccount);
 
 export default router;

@@ -10,6 +10,7 @@ export async function initializeUserTable() {
             password VARCHAR(255) NOT NULL,
             email_notifications BOOLEAN DEFAULT TRUE,
             security_notifications BOOLEAN DEFAULT TRUE,
+            timezone VARCHAR(100) DEFAULT 'EST',
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         );
     `;
