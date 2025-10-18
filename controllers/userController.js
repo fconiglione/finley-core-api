@@ -160,3 +160,44 @@ export const updateUserNotifications = async (req, res) => {
         res.status(500).json({ message: 'Server error' });
     }
 };
+
+// change password functionality
+export const changeUserPassword = async (req, res) => {
+    // Validate input
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+
+    const { current_password, new_password } = req.body;
+
+    try {
+        // Use findByIdWithPassword to get user with password field
+        const user = await User.findByIdWithPassword(req.user.id);
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        // Validate that required fields exist
+        if (!current_password || !user.password) {
+            return res.status(400).json({ message: 'Current password is required' });
+        }
+
+        // Compare current password
+        const isMatch = await bcrypt.compare(current_password, user.password);
+        if (!isMatch) {
+            return res.status(400).json({ message: 'Current password is incorrect' });
+        }
+
+        // Hash the new password
+        const hashedNewPassword = await bcrypt.hash(new_password, 10);
+
+        // Update password in database
+        await User.updatePasswordById(req.user.id, hashedNewPassword);
+
+        res.status(200).json({ message: 'Password changed successfully' });
+    } catch (error) {
+        console.error('Error changing user password:', error);
+        res.status(500).json({ message: 'Server error' });
+    }
+};

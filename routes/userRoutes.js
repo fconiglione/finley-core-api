@@ -1,5 +1,5 @@
 import express from 'express';
-import { registerUser, loginUser, verifyUser, getUserProfile, deleteUserAccount, updateUserProfile, updateUserNotifications } from '../controllers/userController.js';
+import { registerUser, loginUser, verifyUser, getUserProfile, deleteUserAccount, updateUserProfile, updateUserNotifications, changeUserPassword } from '../controllers/userController.js';
 import { body } from 'express-validator';
 
 const router = express.Router();
@@ -24,5 +24,11 @@ router.put('/profile/settings/notifications', verifyUser, updateUserNotification
 
 // Delete Account route (PROTECTED)
 router.delete('/delete', verifyUser, deleteUserAccount);
+
+// Change Password route (PROTECTED)
+router.put('/change-password', verifyUser, [
+    body('current_password').isLength({ min: 8 }).withMessage('Current password must be at least 8 characters'),
+    body('new_password').isLength({ min: 8 }).withMessage('New password must be at least 8 characters')
+], changeUserPassword);
 
 export default router;
