@@ -19,9 +19,14 @@ app.use(cors({
 }));
 app.use(bodyParser.json());
 dotenv.config();
-initializeUserTable();
-initializeAssetsTable();
-initializeLiabilitiesTable();
+// Initialize database tables synchronously
+const initializeDatabase = async () => {
+    await initializeUserTable();
+    await initializeAssetsTable();
+    await initializeLiabilitiesTable();
+};
+
+initializeDatabase();
 
 app.use('/v1/api/users', userRoutes);
 app.use('/v1/api/data', dataRoutes);
